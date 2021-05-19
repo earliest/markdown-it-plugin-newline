@@ -3,6 +3,8 @@
         <!-- <script src="./lib/markdown-it.min.js" type="javascript"></script> -->
         <!-- <script src="test.js"></script> -->
         <script src="Markdown-it-diry.js"></script>
+        <!-- <script src="markdown-it-emoji.js"></script> -->
+        <script src="markdown-it-mark.js"></script>
     </head>
     <body">
         <div>
@@ -12,59 +14,59 @@
         <p>Rendered:</p>
         <div id="display_html"></div>
         <script>
-            var input_area = document.getElementById("input_text_area");
-            input_area.innerText="```\nthis is block line1\nthis is block line2\n```";
+            // var input_area = document.getElementById("input_text_area");
+            // input_area.innerText="```\nthis is block line1\nthis is block line2\n```";
             
-            var HTML_ESCAPE_TEST_RE = /[&<>"]/;
-            var HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
-            var HTML_REPLACEMENTS = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;'
-            };
-            function replaceUnsafeChar(ch) {
-                return HTML_REPLACEMENTS[ch];
-            }
-            function escapeHtml(str) {
-                if (HTML_ESCAPE_TEST_RE.test(str)) {
-                    return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
-                }
-                return str;
-            }
-
-
-            // function replaceHTML(ch) {
-            //     return UNESCAPE_HTML_REPLACEMENTS[ch];
-            // }
-            // var UNESCAPE_HTML_REPLACEMENTS = {
-            // '&amp;':'&',
-            // '&lt;': '<',
-            // '&gt;': '>',
-            // '&quot;': '"'
+            // var HTML_ESCAPE_TEST_RE = /[&<>"]/;
+            // var HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
+            // var HTML_REPLACEMENTS = {
+            // '&': '&amp;',
+            // '<': '&lt;',
+            // '>': '&gt;',
+            // '"': '&quot;'
             // };
-            // function unescapeHtml(str) {
-            //     return str.replace(UNESCAPE_HTML_REPLACEMENTS, replaceHTML);
+            // function replaceUnsafeChar(ch) {
+            //     return HTML_REPLACEMENTS[ch];
+            // }
+            // function escapeHtml(str) {
+            //     if (HTML_ESCAPE_TEST_RE.test(str)) {
+            //         return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
+            //     }
             //     return str;
             // }
-            // let md = new window["markdownit"](
-            //     "default"
-            //     {
-            //         html: true, // To enable HTML tags in source
-            //         linkify: true, // To autoconvert URL-like text to links
-            //         breaks: FeaturesManager.shouldEnableNewLineMarkdownSupport() || FeaturesManager.shouldEnableMarkdownMessageFormatting() // To convert \n in paragraphs into <br>
-            //     }
-            // );
-            var md = window.markdownit();
-            console.log("renders: ", md.renderer.rules);
 
-            function MdRenderDiy(){
-                console.log("clicked");
-                var text = document.getElementById("input_text_area").textContent;
-                console.log("input text: ", text);
-                var html = md.render(text);
-                document.getElementById("display_html").innerHTML = html;
-            }
+
+            // // function replaceHTML(ch) {
+            // //     return UNESCAPE_HTML_REPLACEMENTS[ch];
+            // // }
+            // // var UNESCAPE_HTML_REPLACEMENTS = {
+            // // '&amp;':'&',
+            // // '&lt;': '<',
+            // // '&gt;': '>',
+            // // '&quot;': '"'
+            // // };
+            // // function unescapeHtml(str) {
+            // //     return str.replace(UNESCAPE_HTML_REPLACEMENTS, replaceHTML);
+            // //     return str;
+            // // }
+            // // let md = new window["markdownit"](
+            // //     "default"
+            // //     {
+            // //         html: true, // To enable HTML tags in source
+            // //         linkify: true, // To autoconvert URL-like text to links
+            // //         breaks: FeaturesManager.shouldEnableNewLineMarkdownSupport() || FeaturesManager.shouldEnableMarkdownMessageFormatting() // To convert \n in paragraphs into <br>
+            // //     }
+            // // );
+            // var md = window.markdownit();
+            // console.log("renders: ", md.renderer.rules);
+
+            // function MdRenderDiy(){
+            //     console.log("clicked");
+            //     var text = document.getElementById("input_text_area").textContent;
+            //     console.log("input text: ", text);
+            //     var html = md.render(text);
+            //     document.getElementById("display_html").innerHTML = html;
+            // }
         </script>
         
         <script>
@@ -88,71 +90,68 @@
 
 
         <script>
-            function testCodeBlock (){
-                var orig_code_block = function (tokens, idx, options, env, slf) {
-                    var token = tokens[idx];
-                    console.log("get to block code: ", tokens);
-                    return  '<pre' + slf.renderAttrs(token) + '><code>' +
-                            escapeHtml(tokens[idx].content) +
-                            '</code></pre>\n';
-                };
-                md.renderer.rules.code_block = orig_code_block;
-                //console.log("code inline origin: ", md.renderer.rules.code_block);
-                // var orig_code_inline_rule = md.renderer.rules.code_inline;
-                // console.log("code inline origin: ", orig_code_inline_rule);
-            }
-            var html,input;
-            html = md.render("```\nblock line1<br>block line2\n```");
-            console.log("result:" + html);
+            // function testCodeBlock (){
+            //     var orig_code_block = function (tokens, idx, options, env, slf) {
+            //         var token = tokens[idx];
+            //         console.log("get to block code: ", tokens);
+            //         return  '<pre' + slf.renderAttrs(token) + '><code>' +
+            //                 escapeHtml(tokens[idx].content) +
+            //                 '</code></pre>\n';
+            //     };
+            //     md.renderer.rules.code_block = orig_code_block;
+            //     //console.log("code inline origin: ", md.renderer.rules.code_block);
+            //     // var orig_code_inline_rule = md.renderer.rules.code_inline;
+            //     // console.log("code inline origin: ", orig_code_inline_rule);
+            // }
+            // var html,input;
+            // html = md.render("```\nblock line1<br>block line2\n```");
+            // console.log("result:" + html);
 
-            input = "__line1__\n\n\n*line4*\n```\nblock line1\nblock line2\n```"
-            console.log("input: ", input);
-            input = input.replace(/\n/g, "<br>");
-            input = input.replace(/```<br>/g, "```\n");
-            input = input.replace(/<br>```/g, "\n```");
+            // input = "__line1__\n\n\n*line4*\n```\nblock line1\nblock line2\n```"
+            // console.log("input: ", input);
+            // input = input.replace(/\n/g, "<br>");
+            // input = input.replace(/```<br>/g, "```\n");
+            // input = input.replace(/<br>```/g, "\n```");
 
-            html = md.render(input);
-            html = html.replace(/&lt;br&gt;/g, "<br>");
-            // html = unescapeHtml(html);
-            console.log("result:" + html);
-            document.getElementById("display_html").innerHTML = document.getElementById("display_html").innerHTML + html;
+            // html = md.render(input);
+            // html = html.replace(/&lt;br&gt;/g, "<br>");
+            // // html = unescapeHtml(html);
+            // console.log("result:" + html);
+            // document.getElementById("display_html").innerHTML = document.getElementById("display_html").innerHTML + html;
 
-            input = "__line1__\n\n\n*line4*\n* list item1\n* list item2\n"
-            console.log("input: ", input);
-            input = input.replace(/\n/g, "<br>");
-            input = input.replace(/<br>\*/g, "<br>\n\*");
+            // input = "__line1__\n\n\n*line4*\n* list item1\n* list item2\n"
+            // console.log("input: ", input);
+            // input = input.replace(/\n/g, "<br>");
+            // input = input.replace(/<br>\*/g, "<br>\n\*");
 
-            html = md.render(input);
-            html = html.replace(/&lt;br&gt;/g, "<br>");
-            // html = unescapeHtml(html);
-            console.log("result:" + html);
-            document.getElementById("display_html").innerHTML = document.getElementById("display_html").innerHTML + html;
+            // html = md.render(input);
+            // html = html.replace(/&lt;br&gt;/g, "<br>");
+            // // html = unescapeHtml(html);
+            // console.log("result:" + html);
+            // document.getElementById("display_html").innerHTML = document.getElementById("display_html").innerHTML + html;
+        </script>
+        
+        
+        <script>
+            // var md = window.markdownit();
+            // md.inline.ruler.before("newline", "test_plugin", (state, silent)=>{
+            //     console.log("hitting the new line plugin: ", state, silent);
+            // })
+            // console.log("core rules: ", md.core.ruler);
+            // let result = md.render("abc\ndef");
+            // console.log("result: ", result);
         </script>
 
-        <!-- promise testing -->
         <script>
-            async function testPromiseTimeout() {
-                var rejectPromise;
-    
-                var waitEventPromise = new Promise((resolve, reject) => {
-                    rejectPromise = reject;
-                    window.addEventListener("message", event => {
-                        console.log("message received: ", event);
-                        resolve(event.data);
-                    })
-                });
-                setTimeout(() => {
-                    window.postMessage({"message":"this is a message!"}, "*");
-                }, 3*1000);
-    
-                setTimeout(() => {
-                    //console.log();
-                    rejectPromise("promise rejected first!");
-                }, 4*1000);
-                await waitEventPromise.catch(e=>console.log(e));
-                console.log("waited...");
-            }
-            //testPromiseTimeout();
+            // var md = window.markdownit().use(window.markdownitEmoji);
+            // let result = md.render(":)");
+            // console.log("emoj: ", result);
+        </script>
+        
+        <script>
+            var md = window.markdownit().use(window.markdownitMark);
+            let result = md.render("==marked==");
+            console.log("==marked==: ", result);
         </script>
 <!-- problem -->
 <!-- blockquote -->

@@ -1871,14 +1871,23 @@ default_rules.image = function (tokens, idx, options, env, slf) {
 
 
 default_rules.hardbreak = function (tokens, idx, options /*, env */) {
-  return options.xhtmlOut ? '<br />\n' : '<br>\n';
+  console.log(`hardbreak: idx: ${idx} options: ${options} `)
+  let ret = options.xhtmlOut ? '<br />\n' : '<br>\n';
+  console.log(`hardbreak: ret: ${ret}`);
+  return ret;
 };
+
 default_rules.softbreak = function (tokens, idx, options /*, env */) {
-  return options.breaks ? (options.xhtmlOut ? '<br />\n' : '<br>\n') : '\n';
+  console.log(`softbreak: idx: ${idx}`, tokens[idx]);
+  console.log("softbreak: options: ", options);
+  let ret = options.breaks ? (options.xhtmlOut ? '<br />\n' : '<br>\n') : '\n';
+  console.log("softbreak: ret:", ret);
+  return ret;
 };
 
 
 default_rules.text = function (tokens, idx /*, options, env */) {
+  //console.log("default_rules: text: ", idx, ": ", tokens[idx]);
   return escapeHtml(tokens[idx].content);
 };
 
@@ -2087,6 +2096,7 @@ Renderer.prototype.render = function (tokens, options, env) {
       rules = this.rules;
 
   for (i = 0, len = tokens.length; i < len; i++) {
+    console.log("dumpping token:  ", tokens[i]);
     type = tokens[i].type;
 
     if (type === 'inline') {
@@ -5547,6 +5557,7 @@ var isSpace = require('../common/utils').isSpace;
 
 
 module.exports = function newline(state, silent) {
+  console.log("processing newline: ", state, " silent?: ", silent);
   var pmax, max, pos = state.pos;
 
   if (state.src.charCodeAt(pos) !== 0x0A/* \n */) { return false; }
